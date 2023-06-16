@@ -87,11 +87,11 @@ In your workspace, you have three `.eslintrc.json` files, one in to workspace di
 
 This architecture is based in the extension of rules and properties. I recommend change the standard content following this examples:
 
-- [Workspace ESLint rules](.eslintrc.json)
+- [GLOBAL ESLint rules for the entire my-workspace workspace](.eslintrc.json)
 
-- [Application project ESLint rules](projects\my-application.eslintrc.json)
+- [SPECIFIC ESLint rules for my-application project](projects/my-application/.eslintrc.json)
 
-- [Library project ESLint rules](projects\my-library.eslintrc.json)
+- [SPECIFIC ESLint rules for my-library project](projects/my-library/.eslintrc.json)
 
 <br/>
 <br/>
