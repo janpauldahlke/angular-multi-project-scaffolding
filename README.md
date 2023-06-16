@@ -1,4 +1,4 @@
-# How create a Angular multi-project scaffolding whith workspace, application, library, PWA, SSR, ESLint, Prettier, GIT and IDE (Visual Studio Code) configurtation
+# How create a multi-project scaffolding with your workspace, application, library, PWA, SSR, ESLint, Prettier, GIT and IDE (Visual Studio Code) configuration in Angular 13, 14 or 15
 
 by [Marcos Cazaux](https://marcoscazaux.com) · 2023
 
@@ -7,49 +7,47 @@ by [Marcos Cazaux](https://marcoscazaux.com) · 2023
 
 ## 1 - Pre-requirements
 
-Is mandatory to have installed [Node JS](https://nodejs.org) (recommended >= 16.0.0).
+Is mandatory to have installed [Node JS](https://nodejs.org/en/download/releases). I recommend ^16.14.0 <17.
+
+No need to have Angular CLI and/or TypeScript globally installed, in fact, I do not recommend it.
 
 <br/>
 <br/>
 
-## 2 - Create a workspace
+## 2 - Creating the workspace
 
-This guide is valid for a modular Angular project and a standalone Angular project. For a standalone Angular project, is mandatory Angular v16 or later.
+This guide is valid for a modular Angular project. For a standalone Angular project, is mandatory Angular 16 or later.
 
 <br/>
 
-### 2.a - Options:
+### 2.1 - Options:
 
-"[AngularVersion]" = "14", "15" or "16".
+"[AngularVersion]" = "13", "14" or "15".
 
-Example= `... @angular/cli@angular/cli@16 ng new ...`
+Example= `... @angular/cli@angular/cli@15 ng new ...`
 
 "[DirectoryName]" = "angular-multi-project-scaffolding" or other directory name that you prefer.
 
 Example= `...  --directory=angular-multi-project`
 
-"[StandaloneOption]" = "--standalone" or empty.
-
-Example= `... my-application --standalone`
-
 <br/>
 
-### 2.b - Creating the workspace
+### 2.2 - Creating the workspace
 
-Run each of the following commands in a new Terminal window, overriding the options detailed above.
+Run each of the following commands in a new Terminal window, overriding the options listed above.
 
 `npx -p @angular/cli@[AngularVersion] ng new my-workspace --no-create-application --directory=[DirectoryName]`
 
 `cd [DirectoryName]`
 
-`ng generate application my-application [StandaloneOption]`
+`ng generate application my-application`
 
 `ng generate library my-library`
 
 <br/>
 <br/>
 
-## 3 - Adding PWA to application proyect
+## 3 - Adding PWA to application project
 
 In the same Terminal window, run this command:
 
@@ -58,7 +56,7 @@ In the same Terminal window, run this command:
 <br/>
 <br/>
 
-## 4 - Adding SSR to application proyect
+## 4 - Adding SSR to application project
 
 In the same Terminal window, run this command:
 
@@ -67,7 +65,11 @@ In the same Terminal window, run this command:
 <br/>
 <br/>
 
-## 5 - Adding ESLint to workspace and proyects (application and library)
+## 5 - Adding ESLint to the entire workspace
+
+<br/>
+
+### 5.1 - Installing ESLint
 
 In the same Terminal window, run this command:
 
@@ -76,6 +78,20 @@ In the same Terminal window, run this command:
 `ng g @angular-eslint/schematics:add-eslint-to-project my-application`
 
 `ng g @angular-eslint/schematics:add-eslint-to-project my-library`
+
+<br/>
+
+### 5.2 - Adapting the ESLint setting
+
+In your workspace, you have three `.eslintrc.json` files, one in to workspace directory, the second in to application project directory and the latest, in to library project directory.
+
+This architecture is based in the extension of rules and properties. I recommend change the standard content following this examples:
+
+- [Workspace ESLint rules](.eslintrc.json)
+
+- [Application project ESLint rules](projects\my-application.eslintrc.json)
+
+- [Library project ESLint rules](projects\my-library.eslintrc.json)
 
 <br/>
 <br/>
@@ -92,9 +108,9 @@ In the same Terminal window, run this command:
 
 <br/>
 
-### 6.2 - Setup Prettier
+### 6.2 - Setting up Prettier
 
-In to workspace root, create a file named `.prettierrc` with this content:
+In to workspace root directory, create a file named `.prettierrc` with this content:
 
     {
         "arrowParens": "avoid",
@@ -111,9 +127,9 @@ In to workspace root, create a file named `.prettierrc` with this content:
 <br/>
 <br/>
 
-## 7 - GIT attributes setup
+## 7 - Setting up GIT attributes
 
-In to workspace root, create a file named `.gitattributes` with this content:
+In to workspace root directory, create a file named `.gitattributes` with this content:
 
     # Auto detect text files and perform LF normalization
     * text=auto eol=lf
@@ -121,13 +137,13 @@ In to workspace root, create a file named `.gitattributes` with this content:
 <br/>
 <br/>
 
-## 8 - IDE (Visual Studio Code) setup
+## 8 - Setting up IDE (Visual Studio Code)
 
 <br/>
 
-### 8.1 - Configuration setup
+### 8.1 - Setting up editor
 
-In workspace root, replace all the content of the `.editorconfig` file with this lines:
+In to workspace root directory, replace all the content of the `.editorconfig` file with this lines:
 
     # Editor configuration, see https://editorconfig.org
     root = true
@@ -150,9 +166,9 @@ In workspace root, replace all the content of the `.editorconfig` file with this
 
 <br/>
 
-### 8.2 - Extensions recommendations
+### 8.2 - Setting up extensions recommendations
 
-In workspace root, in `.vscode` directory, in `extensions.json` file, add this lines:
+In to `.vscode` directory, in to `extensions.json` file, add this recommendations:
 
     {
     	...,
@@ -171,9 +187,9 @@ In workspace root, in `.vscode` directory, in `extensions.json` file, add this l
 
 <br/>
 
-### 8.3 - IDE Settings
+### 8.3 - Setting up IDE settings
 
-In workspace root, in `.vscode` directory, add a file named `settings.json` with this content:
+In to `.vscode` directory, add a file named `settings.json` with this content:
 
     {
         "[html]": {
@@ -222,33 +238,35 @@ In workspace root, in `.vscode` directory, add a file named `settings.json` with
 <br/>
 <br/>
 
-## 9 - Adding formating NPM script
+## 9 - Adding an NPM script for workspace formatting
 
-In workspace root, add this line in your `package.json` file:
+In to workspace root directory, add this line in your `package.json` file:
 
+    ...
     "scripts": {
-    	...,
-    	"format:all": "prettier --write ."
+        ...,
+        "formatting:workspace": "prettier --write ."
     },
+    ...
 
 <br/>
 <br/>
 
-## 10 - Executing NPM scripts
+## 10 - Running the NPM scripts
 
 <br/>
 
-### 10.1 - Formatting all workspace with Prettier
+### 10.1 - Format the entire workspace with Prettier
 
-In workspace root, run this command:
+In to workspace root directory, run this command:
 
-`npm run format:all`
+`npm run formatting:workspace`
 
 <br/>
 
-### 10.2 - Linting all workspace with ESLint
+### 10.2 - Lint the entire workspace with ESLint
 
-In workspace root, run this command:
+In to workspace root directory, run this command:
 
 `ng lint`
 
@@ -256,6 +274,24 @@ In workspace root, run this command:
 <br/>
 
 ## 11 - Enjoy! 🥳
+
+<br/>
+<br/>
+
+> <br/>
+>
+> NOTES:
+>
+> You can check and copy the content
+>
+> of all files in this
+>
+> [repository](./)
+>
+> <br/>
+
+<br/>
+<br/>
 
 ---
 

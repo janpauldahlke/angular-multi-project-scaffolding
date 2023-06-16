@@ -1,6 +1,9 @@
 {
   "name": "my-workspace",
   "version": "0.0.0",
+  "engines": {
+    "node": "^16.14.0 <17"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -12,7 +15,7 @@
     "build:ssr": "ng build && ng run my-application:server",
     "prerender": "ng run my-application:prerender",
     "lint": "ng lint",
-    "format:all": "prettier --write ."
+    "formatting:workspace": "prettier --write ."
   },
   "private": true,
   "dependencies": {
