@@ -1,279 +1,440 @@
-# How create a multi-project scaffolding with your workspace, application, library, PWA, SSR, ESLint, Prettier, GIT and IDE (Visual Studio Code) configuration in Angular 13, 14 or 15
+# How create an Angular Multi-Project scaffolding with the workspace, your application, library, PWA, SSR, ESLint, Prettier, GIT and IDE (Visual Studio Code) configuration in Angular 12, 13, 14, 15 or 16.
 
-by [Marcos Cazaux](https://marcoscazaux.com) · 2023
-
-<br/>
-<br/>
-
-## 1 - Pre-requirements
-
-Is mandatory to have installed [Node JS](https://nodejs.org/en/download/releases). I recommend ^16.14.0 <17.
-
-No need to have Angular CLI and/or TypeScript globally installed, in fact, I do not recommend it.
+by [Marcos Cazaux](https://marcoscazaux.com) · JUN 2023
 
 <br/>
 <br/>
 
-## 2 - Creating the workspace
+## 1. Pre-requirements
 
-This guide is valid for a modular Angular project. For a standalone Angular project, is mandatory Angular 16 or later.
+See the following list of recommended by me of Node JS versions for the version of Angular you decide to use in your workspace:
 
-<br/>
-
-### 2.1 - Options:
-
-"[AngularVersion]" = "13", "14" or "15".
-
-Example= `... @angular/cli@angular/cli@15 ng new ...`
-
-"[DirectoryName]" = "angular-multi-project-scaffolding" or other directory name that you prefer.
-
-Example= `...  --directory=angular-multi-project`
+- Angular >=12 <=13
+  - NodeJS ^14.15.0
 
 <br/>
 
-### 2.2 - Creating the workspace
+- Angular >=14 <=15
+  - NodeJS ^16.14.0
 
-Run each of the following commands in a new Terminal window, overriding the options listed above.
+<br/>
 
-`npx -p @angular/cli@[AngularVersion] ng new my-workspace --no-create-application --directory=[DirectoryName]`
+- Angular >=16 <17
+  - NodeJS ^18.10.0
 
-`cd [DirectoryName]`
+<br/>
 
-`ng generate application my-application`
+Install the correct [Node JS](https://nodejs.org/en/download/releases) version.
+
+<br/>
+
+> No need to have Angular CLI and/or TypeScript globally installed, in fact, I don't recommend it.
+
+<br/>
+<br/>
+
+## 2. Creating the workspace
+
+> You can change the Angular version (12, 13, 14, 15 or 16) and the directory name that you prefer.
+>
+> - Options:
+>
+>   - AngularCLI version: "12", "13", "14", "15" or "16".
+>     - Example= `npx -p @angular/cli@15 ...`
+>   - Styles: "css", "scss", "sass"or "less".
+>     - Example= `... --style=scss ...`
+>   - Directory name: "angular-multi-project-scaffolding" or other directory name that you prefer to create the workspace.
+>     - Example= `...  --directory=angular-multi-project-scaffolding`
+
+<br/>
+
+Run this commands in a Terminal window opened in the directory that you prefer to create the workspace:
+
+`npx -p @angular/cli@16 ng new my-workspace --no-create-application --directory=angular-multi-project-scaffolding`
+
+`cd angular-multi-project-scaffolding`
+
+<br/>
+<br/>
+
+## 3. Setting up GIT attributes
+
+GIT Attributes is a configuration that allows you to assign attributes to other files and directories in your repository, thus telling Git how to treat them.
+
+In to workspace root directory, create a file named [.gitattributes](.gitattributes) with this content:
+
+```
+# Auto detect text files and perform LF normalization
+* text=auto eol=lf
+```
+
+<br/>
+<br/>
+
+## 4. Setting up generic IDEs
+
+Editor Config is a configuration file compatible with several IDEs (development environments) which allows us to share the project configuration between team members with different editors.
+
+In to workspace root directory, replace all the content of the [.editorconfig](.editorconfig) file with this lines:
+
+```
+# Editor configuration, see https://editorconfig.org
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+max_line_length = 80
+trim_trailing_whitespace = true
+
+[*.ts]
+quote_type = single
+
+[*.md]
+max_line_length = off
+trim_trailing_whitespace = false
+```
+
+<br/>
+<br/>
+
+## 5. Adding ESLint to workspace
+
+### 5.1 - Installing ESLint NPM dependences
+
+In a Terminal window, in the workspace root directory, run this command:
+
+`ng add @angular-eslint/schematics`
+
+This command does three things, it installs all dependencies, creates a [.eslintrc.json](.eslintrc.json) file with the **Global ESLint properties and rules** for the entire workspace in the root directory and add the next property to the [.angular.json](.angular.json) file.
+
+```
+{
+  ...
+  "cli": {
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
+  }
+}
+```
+
+This last action sets ESLint as the default linter of the workspace. When we will create a new project, application or library type, this will have ESLint configured too and a **Specific ESLint properties and rules** file will be create in your root directory.
+
+<br/>
+
+### 5.2 Adding an NPM script to lint entire workspace
+
+In to workspace root directory, add this line in your [package.json](package.json) file:
+
+```
+{
+  ...
+  "scripts": {
+    ...
+    "eslint:fix": "ng lint --fix"
+  },
+}
+```
+
+<br/>
+<br/>
+
+## 6. Adding Stylelint to workspace
+
+### 6.1 - Installing Stylelint NPM dependences
+
+In a Terminal window, in the workspace root directory, run this command:
+
+`npm install stylelint stylelint-config-standard-scss --save-dev`
+
+<br/>
+
+### 6.2 - Setting up Stylelint
+
+In to workspace root directory, create a new file named [.stylelintrc.json](.stylelintrc.json) with the this content:
+
+```
+{
+  "extends": ["stylelint-config-standard-scss"]
+}
+```
+
+<br/>
+
+### 6.3 - Adding an NPM script to lint entire workspace
+
+In to workspace root directory, add this line in your [package.json](package.json) file:
+
+```
+{
+  ...
+  "scripts": {
+    ...
+    "stylelint:fix": "stylelint \"**/*.scss\" --fix"
+  },
+}
+```
+
+<br/>
+<br/>
+
+## 7. Adding Prettier to workspace
+
+### 7.1 - Installing Prettier
+
+In a Terminal window, in the workspace root directory, run this command:
+
+`npm install prettier --save-dev`
+
+<br/>
+
+### 7.2 - Setting up Prettier
+
+In to workspace root directory, create two new files. The first named [.prettierignore](.prettierignore) with the same content of [.gitignore](.gitignore). The second file, name it [.prettierrc](.prettierrc) with the next content:
+
+```
+{
+  "arrowParens": "avoid",
+  "bracketSameLine": true,
+  "bracketSpacing": true,
+  "printWidth": 80,
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "useTabs": false
+}
+```
+
+<br/>
+
+### 7.3 - Setting up Prettier as an ESLint plugin
+
+Prettier and ESLint have different opinions about style and code formatting. For fix this situation, we need to run Prettier as an ESLint plugin installing three dependencies. This way we can run `ng lint --fix` command and ESLint will fix bugs but also format the code.
+
+In a Terminal window, in the workspace root directory, run this commands:
+
+`npm install prettier-eslint eslint-config-prettier eslint-plugin-prettier --save-dev`
+
+Change the [.eslintrc.json](.eslintrc.json) file content to include Prettier Plugin `plugin:prettier/recommended` in TS and HTML file types, for example:
+
+```
+{
+  ...
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "extends": [
+        ...
+        "plugin:prettier/recommended"
+      ],
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        ...
+        "plugin:prettier/recommended"
+      ],
+      "rules": {
+        ...
+        "prettier/prettier": [
+          "error",
+          { "parser": "angular" }
+        ]
+      }
+    }
+  ]
+}
+```
+
+<br/>
+
+### 7.4 - Adding an NPM script to format entire workspace
+
+In to workspace root directory, add this line in your [package.json](package.json) file:
+
+```
+{
+  ...
+  "scripts": {
+    ...
+    "prettier:fix": "prettier --write ."
+  },
+}
+```
+
+<br/>
+<br/>
+
+## 8. Setting up Visual Studio Code (VSC)
+
+When we edit a file, we want to format it before saving it. To do this, we will configure Visual Studio Code (VSC).
+
+<br/>
+
+### 8.1 - Install Visual Studio Code (VSC) extensions
+
+Install this pair of extensions, [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint), [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) and [Stylelint](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint).
+
+<br/>
+
+### 8.2 - Adding extensions recommendations
+
+In to `.vscode` directory, in to [extensions.json](.vscode/extensions.json) file, add as extensions recommended the extensions previously installed:
+
+```
+{
+  ...
+  "recommendations": [
+    ...
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "stylelint.vscode-stylelint"
+  ]
+}
+```
+
+<br/>
+
+### 8.3 - Setting up Visual Studio Code (VSC) configuration
+
+In to `.vscode` directory, add a file named [settings.json](.vscode/settings.json) with this content:
+
+```
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+}
+```
+
+<br/>
+<br/>
+
+## 9. Creating an application project
+
+> - Options:
+>
+>   - Styles: "css", "scss", "sass"or "less".
+>     - Example= `... --style=scss ...`
+>   - Standalone default (Angular 16 workspace, only): "--standalone" or nothing.
+>     - Example= `...  --standalone`
+
+<br/>
+
+In a Terminal window, in the workspace root directory, run this command:
+
+`ng generate application my-application --style=scss --standalone`
+
+<br/>
+
+> You can add one or more application projects to your workspace by running the above command for each app project you want to have, renaming the project (`my-application`).
+
+<br/>
+<br/>
+
+## 10. Creating a library project
+
+In a Terminal window, in the workspace root directory, run this command:
 
 `ng generate library my-library`
 
 <br/>
+
+> You can add one or more library projects to your workspace by running the above command for each app project you want to have, renaming the project (`my-library`).
+
+<br/>
 <br/>
 
-## 3 - Adding PWA to application project
+## 11. Adding PWA to application project
 
-In the same Terminal window, run this command:
+In a Terminal window, in the workspace root directory, run this command:
 
 `ng add @angular/pwa --project my-application`
 
 <br/>
+
+> You can add PWA to each application project you want by running the above command, changing the project name (`my-application`).
+
+<br/>
 <br/>
 
-## 4 - Adding SSR to application project
+## 12. Adding SSR to application project
 
-In the same Terminal window, run this command:
+In a Terminal window, in the workspace root directory, run this command:
 
 `ng add @nguniversal/express-engine --project my-application`
 
 <br/>
-<br/>
 
-## 5 - Adding ESLint to the entire workspace
-
-<br/>
-
-### 5.1 - Installing ESLint
-
-In the same Terminal window, run this command:
-
-`ng add @angular-eslint/schematics`
-
-`ng g @angular-eslint/schematics:add-eslint-to-project my-application`
-
-`ng g @angular-eslint/schematics:add-eslint-to-project my-library`
-
-<br/>
-
-### 5.2 - Adapting the ESLint setting
-
-In your workspace, you have three `.eslintrc.json` files, one in to workspace directory, the second in to application project directory and the latest, in to library project directory.
-
-This architecture is based in the extension of rules and properties. I recommend change the standard content following this examples:
-
-- [GLOBAL ESLint rules for the entire my-workspace workspace](.eslintrc.json)
-
-- [SPECIFIC ESLint rules for my-application project](projects/my-application/.eslintrc.json)
-
-- [SPECIFIC ESLint rules for my-library project](projects/my-library/.eslintrc.json)
+> You can add SSR to each application project you want by running the above command, changing the project name (`my-application`).
 
 <br/>
 <br/>
 
-## 6 - Adding Prettier to workspace
+## 13. Adding an NPM script to lint and format (ESLint, Prettier and Stylelint) entire workspace
 
-<br/>
+In to workspace root directory, add this line in your [package.json](package.json) file:
 
-### 6.1 - Installing Prettier
-
-In the same Terminal window, run this command:
-
-`npm install --save-dev --save-exact prettier`
-
-<br/>
-
-### 6.2 - Setting up Prettier
-
-In to workspace root directory, create a file named `.prettierrc` with this content:
-
-    {
-        "arrowParens": "avoid",
-        "bracketSameLine": true,
-        "bracketSpacing": true,
-        "printWidth": 80,
-        "semi": true,
-        "singleQuote": true,
-        "tabWidth": 2,
-        "trailingComma": "es5",
-        "useTabs": false
-    }
-
-<br/>
-<br/>
-
-## 7 - Setting up GIT attributes
-
-In to workspace root directory, create a file named `.gitattributes` with this content:
-
-    # Auto detect text files and perform LF normalization
-    * text=auto eol=lf
-
-<br/>
-<br/>
-
-## 8 - Setting up IDE (Visual Studio Code)
-
-<br/>
-
-### 8.1 - Setting up editor
-
-In to workspace root directory, replace all the content of the `.editorconfig` file with this lines:
-
-    # Editor configuration, see https://editorconfig.org
-    root = true
-
-    [*]
-    charset = utf-8
-    indent_style = space
-    indent_size = 2
-    end_of_line = lf
-    insert_final_newline = true
-    trim_trailing_whitespace = true
-
-    [*.ts]
-    quote_type = single
-
-    [*.md]
-    insert_final_newline = false
-    max_line_length = off
-    trim_trailing_whitespace = false
-
-<br/>
-
-### 8.2 - Setting up extensions recommendations
-
-In to `.vscode` directory, in to `extensions.json` file, add this recommendations:
-
-    {
-    	...,
-    	"recommendations": [
-    		...,
-    		"dbaeumer.vscode-eslint",
-    		"deque-systems.vscode-axe-linter",
-    		"esbenp.prettier-vscode",
-    		"github.vscode-github-actions",
-    		"redhat.vscode-xml",
-    		"redhat.vscode-yaml",
-    		"stylelint.vscode-stylelint",
-    		"williamragstad.wr-docthis"
-    	]
-    }
-
-<br/>
-
-### 8.3 - Setting up IDE settings
-
-In to `.vscode` directory, add a file named `settings.json` with this content:
-
-    {
-        "[html]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
-        "editor.codeActionsOnSave": {
-            "source.fixAll.eslint": true
-        },
-        "editor.formatOnSave": true
-        },
-        "[typescript]": {
-            "editor.defaultFormatter": "esbenp.prettier-vscode",
-            "editor.codeActionsOnSave": [
-                "source.organizeImports",
-                "source.fixAll.eslint"
-                ],
-            "editor.formatOnSave": true
-        },
-        "[json]": {
-            "editor.defaultFormatter": "esbenp.prettier-vscode",
-            "editor.codeActionsOnSave": {
-                "source.fixAll.eslint": false
-            },
-            "editor.formatOnSave": true
-            },
-        "[xml]": {
-            "editor.defaultFormatter": "redhat.vscode-xml",
-            "editor.formatOnSave": true
-            },
-        "[yaml]": {
-            "editor.defaultFormatter": "redhat.vscode-xml",
-            "editor.formatOnSave": true
-            },
-        "[scss]": {
-            "editor.defaultFormatter": "vscode.css-language-features",
-            "editor.formatOnSave": true
-            },
-        "[markdown]": {
-            "editor.defaultFormatter": "esbenp.prettier-vscode",
-            "editor.formatOnSave": true
-            },
-        "docthis.includeDescriptionTag": true,
-        "docthis.inferTypesFromNames": true,
-        "docthis.returnsTag": true
-    }
-
-<br/>
-<br/>
-
-## 9 - Adding an NPM script for workspace formatting
-
-In to workspace root directory, add this line in your `package.json` file:
-
+```
+{
+  ...
+  "scripts": {
     ...
-    "scripts": {
-        ...,
-        "formatting:workspace": "prettier --write ."
-    },
-    ...
-
-<br/>
-<br/>
-
-## 10 - Running the NPM scripts
-
-<br/>
-
-### 10.1 - Format the entire workspace with Prettier
+    "cleancode": "npm run prettier:fix && npm run stylelint:fix && npm run eslint:fix"
+  },
+}
+```
 
 In to workspace root directory, run this command:
 
-`npm run formatting:workspace`
+`npm run cleancode`
+
+If you get an error like this or similar:
+
+```
+stylelint "**/*.scss" --fix
+
+
+projects/my-application/src/app/app.component.scss
+ 1:1  ✖  Unexpected empty source  no-empty-source
+
+1 problem (1 error, 0 warnings)
+
+
+Linting "my-library"...
+
+...angular-multi-project-scaffolding\projects\my-library\src\lib\my-library.service.ts
+  7:17  error  Unexpected empty constructor  @typescript-eslint/no-empty-function
+
+✖ 1 problem (1 error, 0 warnings)
+
+Lint errors found in the listed files.
+
+```
+
+Don't worry, everything is fine!
+
+Now, you have to manually fix this error because Stylelint, EsLint or Prettier can't do it automatically, but it notifies to you.
 
 <br/>
-
-### 10.2 - Lint the entire workspace with ESLint
-
-In to workspace root directory, run this command:
-
-`ng lint`
-
-<br/>
 <br/>
 
-## 11 - Enjoy! 🥳
+## 14 - Enjoy! 🥳
 
 <br/>
 <br/>

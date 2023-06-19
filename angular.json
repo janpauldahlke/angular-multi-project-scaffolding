@@ -7,7 +7,14 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "scss",
+          "standalone": true
+        },
+        "@schematics/angular:directive": {
+          "standalone": true
+        },
+        "@schematics/angular:pipe": {
+          "standalone": true
         }
       },
       "root": "projects/my-application",
@@ -93,6 +100,15 @@
             "scripts": []
           }
         },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/my-application/**/*.ts",
+              "projects/my-application/**/*.html"
+            ]
+          }
+        },
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
@@ -106,6 +122,7 @@
               "outputHashing": "media"
             },
             "development": {
+              "buildOptimizer": false,
               "optimization": false,
               "sourceMap": true,
               "extractLicenses": false,
@@ -144,15 +161,6 @@
             }
           },
           "defaultConfiguration": "production"
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "projects/my-application/**/*.ts",
-              "projects/my-application/**/*.html"
-            ]
-          }
         }
       }
     },
@@ -195,5 +203,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "schematicCollections": ["@angular-eslint/schematics"]
   }
 }

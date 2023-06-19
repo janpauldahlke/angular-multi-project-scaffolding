@@ -6,11 +6,10 @@ describe('MyLibraryComponent', () => {
   let component: MyLibraryComponent;
   let fixture: ComponentFixture<MyLibraryComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       declarations: [MyLibraryComponent],
-    }).compileComponents();
-
+    });
     fixture = TestBed.createComponent(MyLibraryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

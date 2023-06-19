@@ -3,12 +3,7 @@
   "recommendations": [
     "angular.ng-template",
     "dbaeumer.vscode-eslint",
-    "deque-systems.vscode-axe-linter",
     "esbenp.prettier-vscode",
-    "github.vscode-github-actions",
-    "redhat.vscode-xml",
-    "redhat.vscode-yaml",
-    "stylelint.vscode-stylelint",
-    "williamragstad.wr-docthis"
+    "stylelint.vscode-stylelint"
   ]
 }
