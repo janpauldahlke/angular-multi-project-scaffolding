@@ -1,4 +1,4 @@
-# How create an Angular Multi-Project scaffolding with the workspace, your application, library, PWA, SSR, ESLint, Prettier, GIT and IDE (Visual Studio Code) configuration in Angular 12, 13, 14, 15 or 16.
+# How create an Angular Multi-Project scaffolding with the workspace, your application, library, PWA, SSR, ESLint, Stylelint, Prettier, GIT and IDE (Visual Studio Code) configuration in Angular 12, 13, 14, 15 or 16.
 
 by [Marcos Cazaux](https://marcoscazaux.com) · JUN 2023
 
@@ -436,20 +436,9 @@ Now, you have to manually fix this error because Stylelint, EsLint or Prettier c
 
 ## 14 - Enjoy! 🥳
 
-<br/>
-<br/>
-
-> <br/>
->
 > NOTES:
 >
-> You can check and copy the content
->
-> of all files in this
->
-> [repository](./)
->
-> <br/>
+> You can check and copy the content of all files in this [repository](./)
 
 <br/>
 <br/>
