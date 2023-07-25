@@ -1,0 +1,38 @@
+.widget-size {
+  position: absolute;
+  padding: 4px;
+  background-color: white;
+  border: solid 6px #666666;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  .line {
+    display: flex;
+    gap: 2px;
+
+    .cell {
+      width: 8px;
+      height: 8px;
+      background-color: #C9C9C9;
+
+      &.active {
+        background-color: #0060C8;
+      }
+    }
+  }
+}
+
+.widget-size:before {
+  content: "";
+  position: absolute;
+  right: -10px;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-left: 10px solid #666666;
+  border-bottom: 10px solid transparent;
+  top: 50%;
+  transform: translateY(-50%);
+}

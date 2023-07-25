@@ -1,0 +1,11 @@
+<div class="dropdown">
+  <div *ngIf="selectedItems.length" class="reset-selection" (click)="resetSelection()">Auswahl aufheben</div>
+  <div *ngFor="let item of items"
+       class="item" [class.selected]="selectedItems.includes(item)"
+       (click)="toggleItem(item)">
+    <img class="checkbox"
+         [src]="'checkbox/icn-checkbox' + (selectedItems.includes(item) ? '-selected' : '') | icon"
+         [alt]="selectedItems.includes(item) ? 'Filter entfernen' : 'Filter hinzufügen'">
+    <div class="label">{{item}}</div>
+  </div>
+</div>

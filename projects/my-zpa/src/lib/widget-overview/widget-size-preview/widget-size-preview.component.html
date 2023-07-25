@@ -1,0 +1,5 @@
+<div class="widget-size" >
+  <div *ngFor="let line of cells" class="line">
+    <div *ngFor="let cell of line" class="cell" [class.active]="cell"></div>
+  </div>
+</div>

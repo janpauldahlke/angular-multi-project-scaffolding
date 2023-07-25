@@ -1,0 +1,29 @@
+<div *ngIf="fullscreenWidget" class="fullscreen-container">
+  <app-widget class="fullscreen-widget"
+              [widget]="fullscreenWidget"
+              [isInFullscreenMode]="true"
+              (toggleFullscreenMode)="fullscreenWidget = undefined">
+  </app-widget>
+</div>
+
+<div *ngIf="!fullscreenWidget" class="grid-container">
+  <ng-container *ngFor="let slot of widgets | gridSlots:columnAmount; index as index">
+    <div *ngIf="index | getPosition:columnAmount as position" class="slot"
+         [class.invisible]="!isInConfigureMode"
+         [class.hovered-slot]="position | isHovered:dragAndDropService.hoveredPositionsOfDragTarget"
+         [style.gridRowStart]="position.row"
+         [style.gridColumnStart]="position.column"
+         (dragenter)="hideWidget = undefined; dragAndDropService.updateDraggingState(position)">
+    </div>
+  </ng-container>
+  <ng-container *ngFor="let widget of widgets">
+    <app-widget [hidden]="(widget | widgetsEqual:dragAndDropService.dragTarget) || (widget | widgetsEqual:hideWidget)"
+                [style.gridArea]="widget | gridAreaStyles"
+                [widget]="widget" [isInConfigureMode]="isInConfigureMode"
+                (removeWidget)="removeWidget(widget)"
+                (startDragging)="dragStart(widget, $event)"
+                (dragenter)="(!dragAndDropService.dragTarget || dragAndDropService.action === 'drag') && (hideWidget = widget)"
+                (toggleFullscreenMode)="fullscreenWidget = widget">
+    </app-widget>
+  </ng-container>
+</div>

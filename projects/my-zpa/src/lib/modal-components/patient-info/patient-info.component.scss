@@ -1,0 +1,31 @@
+.content {
+  padding: 24px;
+
+  h2 {
+    margin-bottom: 24px;
+  }
+
+  .info-container {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 8px;
+
+    div {
+      display: flex;
+
+      span:first-of-type {
+        width: 40%;
+        margin-right: 8px;
+        text-align: right;
+      }
+
+      span:last-of-type {
+        max-width: calc(60% - 8px);
+      }
+    }
+
+    .category-end {
+      margin-bottom: 8px;
+    }
+  }
+}

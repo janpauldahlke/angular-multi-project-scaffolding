@@ -1,0 +1,38 @@
+<div class="header">
+  <div class="patient">
+    <span class="bold-text"
+      >{{ patient?.firstName }} {{ patient?.lastName }}</span
+    >
+    <span *ngIf="patient?.dateOfBirth as dateOfBirth" class="age-data">
+      <span class="text-small">{{ dateOfBirth | date : 'dd.MM.y' }}</span>
+      <span class="gray-text text-small">{{ dateOfBirth | age }}</span>
+    </span>
+  </div>
+
+  <div class="actions">
+    <span
+      *ngIf="dataService.patient$ | async as patient"
+      class="gray-text text-small"
+      >doknr: {{ patient.patientenId }}</span
+    >
+    <button
+      *ngIf="featureService.cAvailableFeatures().includes('ConfigurationMode')"
+      class="configure-button"
+      (click)="startConfigureMode.emit()"
+      (mouseenter)="hovered = 'configure'"
+      (mouseleave)="hovered = ''"
+      [class.disabled]="disableConfigureButton">
+      <img class="icon" alt="Ansicht konfigurieren" />
+      <span>Ansicht konfigurieren</span>
+    </button>
+    <button
+      *ngIf="featureService.cAvailableFeatures().includes('Notes')"
+      class="toggle-button"
+      (click)="showNotes = !showNotes">
+      <div class="toggle" [class.active]="showNotes">
+        <span class="slider"></span>
+      </div>
+      <span>Notizen</span>
+    </button>
+  </div>
+</div>

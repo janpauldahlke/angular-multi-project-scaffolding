@@ -1,0 +1,53 @@
+<div class="content">
+  <h2>Patienteninfos</h2>
+  <div class="info-container">
+    <div>
+      <span>Name:</span>
+      <span>{{patient?.firstName}} {{patient?.lastName}}</span>
+    </div>
+    <div>
+      <span>Geburtsdatum:</span>
+      <span>{{patient?.dateOfBirth}}</span>
+    </div>
+    <div>
+      <span>Alter:</span>
+      <span>{{patient?.dateOfBirth | age}}</span>
+    </div>
+    <div class="category-end">
+      <span>Geschlecht:</span>
+      <span>{{patient?.gender}}</span>
+    </div>
+    <div>
+      <span>Kostenträger:</span>
+      <span>{{patient?.insurance}}</span>
+    </div>
+    <div class="category-end">
+      <span>Abrechnungsdetails:</span>
+      <span>Noch nicht hinterlegt.</span>
+    </div>
+    <div class="category-end">
+      <span>Allergien:</span>
+      <span>Penicillin, Pollen, Ahorn, Hausstaubmilbe, Katzenhaare, Hundehaare</span>
+    </div>
+    <div>
+      <span>Körpergröße:</span>
+      <span>182 cm (02.03.2019)</span>
+    </div>
+    <div>
+      <span>Gewicht:</span>
+      <span>83 kg (01.05.2018)</span>
+    </div>
+    <div class="category-end">
+      <span>Letzter KREA:</span>
+      <span>0.84 mg/dl (01.02.2018)</span>
+    </div>
+    <div>
+      <span>Schwangerschaft:</span>
+      <span>Schwanger (02.08.2020)</span>
+    </div>
+    <div>
+      <span>Stillstatus:</span>
+      <span>Stillend (02.10.2020)</span>
+    </div>
+  </div>
+</div>

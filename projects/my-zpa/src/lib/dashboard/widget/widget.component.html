@@ -1,0 +1,43 @@
+<div *ngIf="widget"
+     [class.single-height]="!isInFullscreenMode && widget.height === 1"
+     class="widget-container"
+     [draggable]="hovered === 'drag' || hovered === 'resize' || hovered === 'resize-icon'"
+     (dragstart)="dragStart($event)">
+  <div *ngIf="isInConfigureMode" class="overlay"
+       [class.hovered]="hovered === 'drag'"
+       (mouseenter)="hovered = 'drag'"
+       (mouseleave)="hovered = ''">
+    <h5 #widgetTitle title="{{widgetTitle.offsetWidth < widgetTitle.scrollWidth ? widget.name : null}}">{{widget.name}}</h5>
+    <img [src]="'icn-close' | icon:hovered === 'close'" alt="Widget entfernen"
+         (mouseenter)="hovered = 'close'"
+         (mouseleave)="hovered = 'drag'"
+         (click)="removeWidget.emit()"
+         draggable="false">
+    <div
+         (mouseenter)="hovered = 'resize'"
+         (mouseleave)="hovered = 'drag'"
+         class="resize-button">
+      <img [src]="'icn-resize' | icon:hovered === 'resize-icon'" alt="Größe anpassen"
+           (mouseenter)="hovered = 'resize-icon'"
+           (mouseleave)="hovered = 'resize'"
+           ondragstart="return false"
+           draggable="false">
+    </div>
+  </div>
+  <img *ngIf="!isInConfigureMode"
+       class="fullscreen-icon"
+       [src]="(!isInFullscreenMode ? 'icn-open-in-full' : 'icn-close-fullscreen') | icon:hovered === 'fullscreen'"
+       alt="Widget im Vollbildmodus öffnen"
+       (mouseenter)="hovered = 'fullscreen'"
+       (mouseleave)="hovered = ''"
+       (click)="toggleFullscreenMode.emit()"
+       draggable="false">
+  <div #iframeContainer class="iframe-container" [class.hovered]="!isInFullscreenMode && hovered === 'fullscreen'">
+    <!-- iframe gets inserted programmatically here -->
+  </div>
+
+  <form #iframeForm [target]="widgetId" method="get" [action]="widget.url">
+    <input *ngIf="widget.widgetInvocationParams?.includes('patientenId')" type="hidden" name="patientenId" [value]="(queryParams$ | async)?.patientenId">
+    <input *ngIf="widget.widgetInvocationParams?.includes('iBSNR')" type="hidden" name="iBSNR" [value]="(queryParams$ | async)?.iBSNR">
+  </form>
+</div>

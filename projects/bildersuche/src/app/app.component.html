@@ -1,0 +1,18 @@
+<app-header></app-header>
+<!-- TODO: type query and apply app option arguments to the query-->
+<!-- <app-options></app-options> -->
+
+<app-search
+  (query)="propagateQuery($event)"
+  (image)="propagateImage($event)"
+></app-search>
+<app-results
+  [query]="query"
+  (image)="propagateImage($event)"
+></app-results>
+
+<app-lightbox
+  [image]="image"
+  [isVisibleLightbox]="isLightBoxOpen"
+  (unshowBox)="toggleBox($event)"
+></app-lightbox>

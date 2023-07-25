@@ -1,0 +1,57 @@
+:host {
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  top: -4px;
+  right: 0;
+  width: calc(100% - 4px);
+  background: white;
+  border: 1px solid #666666;
+  max-height: 500px;
+  overflow-y: auto;
+  text-align: center;
+  z-index: 10;
+
+  .item {
+    padding: 8px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #DDE9F6;
+    }
+  }
+
+  .item:not(:last-child) {
+    border-bottom: 1px solid #DFDFDF;
+  }
+
+  .reset-selection {
+    font-style: italic;
+    border-bottom: 1px solid #666666;
+    text-align: left;
+    padding: 8px;
+    height: 16px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #DDE9F6;
+    }
+  }
+
+  .selected {
+    background-color: #DDE9F6;
+
+    .label {
+      font-weight: bold;
+    }
+  }
+
+  .label {
+    margin-left: 4px;
+  }
+}

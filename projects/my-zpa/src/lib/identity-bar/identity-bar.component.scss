@@ -1,0 +1,107 @@
+:host {
+  background-color: white;
+  z-index: 2;
+  position: sticky;
+  top: 0;
+  border-bottom: 1px solid #E9E9E9;
+
+  .header {
+    height: 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 24px;
+    box-sizing: border-box;
+
+    .patient {
+      display: flex;
+      align-items: center;
+      grid-gap: 16px;
+
+      .age-data {
+        display: flex;
+        align-items: center;
+        grid-gap: 8px;
+      }
+    }
+
+    .actions {
+      display: flex;
+      grid-gap: 24px;
+
+      .configure-button {
+        display: flex;
+        align-items: center;
+        grid-gap: 8px;
+        cursor: pointer;
+
+        span {
+          color: #0060C8;
+        }
+
+        &:hover span {
+          color: #46A8EA;
+        }
+
+        &.disabled {
+          pointer-events: none;
+
+          span {
+            color: #C0C0C0;
+          }
+        }
+      }
+
+      .toggle-button {
+        display: flex;
+        align-items: center;
+        grid-gap: 8px;
+        cursor: pointer;
+
+        span {
+          color: #0060C8;
+          user-select: none;
+        }
+
+        .toggle {
+          position: relative;
+          width: 36px;
+          height: 20px;
+          background-color: #C0C0C0;
+          border-radius: 10px;
+          transition: .4s;
+
+          .slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            background-color: white;
+            border-radius: 100%;
+            transition: .4s;
+          }
+
+          &.active {
+            background-color: #0060C8;
+
+            .slider {
+              left: 18px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media all and (max-width: 1280px) {
+
+  :host {
+    width: 1280px;
+
+    :host-context(.shrink) & {
+      width: 1024px;
+    }
+  }
+}

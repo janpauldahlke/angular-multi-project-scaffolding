@@ -12,7 +12,12 @@
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "paths": {
-      "my-library": ["dist/my-library"]
+      "my-library": [
+        "dist/my-library"
+      ],
+      "my-zpa": [
+        "dist/my-zpa"
+      ]
     },
     "declaration": false,
     "downlevelIteration": true,

@@ -1,0 +1,33 @@
+// it is ugly
+// .main {
+//   background: rgb(2,0,36);
+//   background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,0,24,1) 88%, rgba(0,212,255,1) 100%);
+// }
+
+.image-list {
+  flex-wrap: wrap;
+  align-items: center;
+  width: 80vw;
+  margin: 0 auto;
+}
+
+.image-list__item {
+  margin: 1rem;
+}
+
+.is_list  {
+  ul {
+    list-style-type: none;
+  }
+}
+
+.options {
+  width: 80vw;
+  margin: 0 auto;
+  padding-bottom: 2rem;
+  text-align: center;
+}
+
+.options_ordering{
+  padding-left: 10vw;
+}

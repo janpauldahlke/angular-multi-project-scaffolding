@@ -1,0 +1,56 @@
+
+<section class="main">
+
+  <ng-container *ngIf="results !== null && results.hits.length > 0">
+    <div class="options">
+    <span> You revieved total hits : {{results.total}}</span> <br />
+    <span> hits per page: {{this.images_per_page}}</span> <br />
+    
+    <div class="pagination">
+      <button *ngIf="this.page >= 2" mat-button (click)="prevPage()">Prev {{this.page - 1}}</button>
+      <button mat-button disabled>page {{this.page }}</button>
+      <button *ngIf="this.page * this.images_per_page < results.total"mat-button (click)="nextPage()">Next {{this.page + 1}}</button>
+    </div>
+  </div>
+
+  <div class="options_ordering">
+    <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onToggleChange(group.value)">
+      <mat-button-toggle value="isRow">Rows</mat-button-toggle>
+      <mat-button-toggle value="!isRow">List</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+    
+  <ng-container *ngIf="isRow">
+    <div class="image-list">
+      <ng-container *ngFor="let hit of results.hits">
+        <img 
+          class="image-list__item"
+          src={{hit?.previewURL}}
+          height={{hit?.previewHeight}}
+          width={{hit?.previewWidth}}
+          (click)="emitImageToLightBox(hit)"
+        />
+      </ng-container>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!isRow">
+    <div class="image-list is_list">
+      <ng-container *ngFor="let hit of results.hits">
+        <ul>
+          <li>
+            <img 
+              class="image-list__item"
+              src={{hit?.previewURL}}
+              height={{hit?.previewHeight}}
+              width={{hit?.previewWidth}}
+              (click)="emitImageToLightBox(hit)"
+            />
+          </li>
+        </ul>
+      </ng-container>
+    </div>
+  </ng-container>
+    
+  </ng-container>
+</section>

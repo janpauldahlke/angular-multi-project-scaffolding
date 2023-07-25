@@ -1,0 +1,61 @@
+<div>
+  <div
+    class="window"
+    (dragover)="$event.preventDefault()"
+    (drop)="$event.preventDefault(); dragAndDropService.resetAllDragData()"
+    (dragleave)="dragAndDropService.leaveWindow($event)"
+    (dragenter)="dragAndDropService.enterWindow()">
+    <app-menu></app-menu>
+
+    <div class="sidebar-container">
+      <div class="container" [class.shrink]="isInConfigureMode">
+        <app-identity-bar
+          *ngIf="dataService.patient$ | async as patient"
+          [patient]="patient ?? undefined"
+          [disableConfigureButton]="
+            isInConfigureMode || !!dashboardComponent?.fullscreenWidget
+          "
+          (startConfigureMode)="toggleConfigureMode(true)">
+        </app-identity-bar>
+
+        <app-dashboard
+          *ngIf="widgetsService.dashboardWidgets$ | async as widgets"
+          [widgets]="isInConfigureMode ? configurableWidgets : widgets"
+          [isInConfigureMode]="isInConfigureMode"
+          (updateConfigurableWidgets)="configurableWidgets = $event">
+        </app-dashboard>
+      </div>
+
+      <ng-container
+        *ngIf="widgetsService.allWidgets$ | async as availableWidgets">
+        <app-widget-overview
+          *ngIf="isInConfigureMode"
+          [availableWidgets]="availableWidgets"
+          [configurableWidgets]="configurableWidgets"
+          (endConfigureMode)="toggleConfigureMode(false)"
+          (saveWidgets)="saveDashboardWidgets()"
+          (dragWidget)="dragWidgetFromOverview($event)"
+          (dragenter)="dragAndDropService.setDragTargetBackToDragSource()">
+        </app-widget-overview>
+      </ng-container>
+    </div>
+
+    <div *ngIf="modalService.activeModal" class="modal-background">
+      <img
+        [src]="'icn-close' | icon : hovered === 'close'"
+        alt="Widget entfernen"
+        (mouseenter)="hovered = 'close'"
+        (mouseleave)="hovered = ''"
+        (click)="hovered = ''; modalService.hideModal()" />
+      <div class="modal" (click)="$event.stopPropagation()">
+        <ng-container [ngSwitch]="modalService.activeModal">
+          <ng-container *ngSwitchCase="'patient-info'">
+            <app-patient-info
+              *ngIf="dataService.patient$ | async as patient"
+              [patient]="patient ?? undefined"></app-patient-info>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,86 @@
+<h5>Widgetübersicht</h5>
+<div class="search-container">
+  <input type="search" name="searchTerm" placeholder="Kachel suchen" [(ngModel)]="searchTerm">
+  <div class="filter-button" #filterButton>
+    <img [src]="'filter/icn-filter-' + (openFilter ? 'open' : 'closed') | icon:hovered === 'filter'" alt="Filter ändern"
+         (mouseenter)="hovered = 'filter'"
+         (mouseleave)="hovered = ''"
+         (click)="openFilter = !openFilter">
+  </div>
+</div>
+
+<app-topic-filter *ngIf="openFilter" [items]="topics" [selectedItems]="selectedTopics"
+                  (updateSelection)="selectedTopics = $event"
+                  (appClickOutside)="openFilter = false" [toggleButtonRef]="filterButtonElement">
+</app-topic-filter>
+
+<div class="added-topics">
+  <div class="topic"  *ngFor="let topic of selectedTopics">
+    <div>{{topic.toString()}}</div>
+    <img [src]="'icn-close-grey' | icon:hovered === 'remove-topic' + topic" alt="Widget entfernen" class="close-btn"
+         (mouseenter)="hovered = 'remove-topic' + topic"
+         (mouseleave)="hovered = ''"
+         (click)="removeFilter(topic)">
+  </div>
+</div>
+
+<div class="filter-reset"
+     (mouseenter)="hovered = 'filter-reset'"
+     (mouseleave)="hovered = ''"
+     [class.disabled]="!selectedTopics.length"
+     [class.hovered]="hovered === 'filter-reset'"
+     (click)="selectedTopics = []">
+  <img [src]="'filter/icn-filter-reset' | icon:hovered === 'filter-reset': selectedTopics.length === 0" alt="Filter zurücksetzen">
+  <div class="reset-label" >Alle Filter zurücksetzen</div>
+</div>
+
+<div class="widget-container">
+  <div *ngFor="let widget of newWidgets | filterByTopics:selectedTopics | filterByName:searchTerm | sort" class="widget"
+       (mouseenter)="setDraggableWidget(widget, $event)"
+       (mouseleave)="draggableWidget = undefined"
+       [draggable]="draggableWidget === widget"
+       [class.hovered]="draggableWidget === widget"
+       (dragstart)="dragWidget.emit(widget)">
+    <img src="assets/images/icn-menu-inpatient-consultation.svg" alt="widget icon"
+         ondragstart="return false"
+         draggable="false">
+    <div class="widget-content">
+      <span [title]="widget.name">{{widget.name}}</span>
+      {{widget.description}} {{widget.associatedTopic}}
+    </div>
+  </div>
+
+  <ng-container
+    *ngIf="widgetsInUse | filterByTopics:selectedTopics | filterByName:searchTerm | sort as filteredWidgetsInUse">
+    <div *ngIf="filteredWidgetsInUse.length" class="subtitle">In aktueller Ansicht vorhanden</div>
+    <div *ngFor="let widget of filteredWidgetsInUse" class="widget"
+         (mouseenter)="setDraggableWidget(widget, $event)"
+         (mouseleave)="draggableWidget = undefined"
+         [draggable]="draggableWidget === widget"
+         [class.hovered]="draggableWidget === widget"
+         (dragstart)="dragWidget.emit(widget)">
+      <img src="assets/images/icn-menu-inpatient-consultation.svg" alt="widget icon"
+           ondragstart="return false"
+           draggable="false">
+      <div class="widget-content">
+        <span [title]="widget.name">{{widget.name}}</span>
+        {{widget.description}}
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<ng-container *ngIf="!dragAndDropService.action && draggableWidget">
+  <app-widget-size-preview *ngIf="draggableWidget | previewPosition:currentWidgetPos as position"
+                           [optimalHeight]="draggableWidget.optimalHeight"
+                           [optimalWidth]="draggableWidget.optimalWidth"
+                           [style.left]="position.x"
+                           [style.top]="position.y"
+                           class="widget-size-container">
+  </app-widget-size-preview>
+</ng-container>
+
+<div class="actions">
+  <button class="kpark-button primary-button" (click)="saveWidgets.emit()">Konfiguration speichern</button>
+  <button class="kpark-button secondary-button" (click)="endConfigureMode.emit()">Konfiguration abbrechen</button>
+</div>

@@ -1,0 +1,10 @@
+
+<section class="searchForm">
+  <form [formGroup]="searchForm" (ngSubmit)="emitQuery($event)">
+    <mat-form-field class="searchForm">
+      <mat-label >searchTerm: </mat-label>
+      <input matInput id="searchTerm" type="text" formControlName="searchTerm" />
+    </mat-form-field>
+  </form> 
+</section>
+
