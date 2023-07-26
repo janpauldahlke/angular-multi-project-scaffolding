@@ -13,7 +13,7 @@ See the following list of recommended by me of Node JS versions for the version 
 - Angular >=12 <=13
   - NodeJS ^14.15.0
 <br/>
-- Angular >=14 <=15
+- Angular >=14 <=15 
   - NodeJS ^16.14.0
 <br/>
 - Angular >=16 <17
