@@ -1,0 +1,5 @@
+<svg id="icn-user" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <rect id="box" width="24" height="24" fill="none"/>
+  <path id="filling2" d="M9,15c-2.67,0-8,1.34-8,4v2H17V19C17,16.34,11.67,15,9,15Z" transform="translate(3)" fill="silver"/>
+  <circle id="filling-1" cx="4" cy="4" r="4" transform="translate(8 5)" fill="silver"/>
+</svg>

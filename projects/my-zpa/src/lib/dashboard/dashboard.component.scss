@@ -1,15 +1,16 @@
+
 :host {
   height: 100%;
 
   :host-context(.shrink) & {
 
     .grid-container {
-      //grid-gap: utilities.get-vw(12px);
-      //grid-template-columns: repeat(8, utilities.get-vw(170px));
+      grid-gap: 12px;
+      grid-template-columns: repeat(8, 170px);
 
       .slot {
-        //width: utilities.get-vw(170px);
-        //height: utilities.get-vw(170px);
+        width: get-vw(170px);
+        height: get-vw(170px);
       }
     }
   }
@@ -32,15 +33,15 @@
   display: grid;
   padding: 20px 28px;
   box-sizing: border-box;
-  //grid-gap: utilities.get-vw(16px);
-  //grid-template-columns: repeat(8, utilities.get-vw(215px));
+  grid-gap: 16px;
+  grid-template-columns: repeat(8, 215px);
 
   .slot {
     border: 1px dashed #0060C8;
     box-sizing: border-box;
     background: #FAFAFA;
-    //width: utilities.get-vw(215px);
-    //height: utilities.get-vw(215px);
+    width: 215px;
+    height: 215px;
 
     &.hovered-slot {
       background: #DDE9F6;

@@ -56,12 +56,12 @@
         width: 24px;
         height: 24px;
         background-color: #A6A6A6;
-        //-webkit-mask-image: url(../../assets/images/icn-placeholder.svg);
-        //mask-image: url(../../assets/images/icn-placeholder.svg);
+        -webkit-mask-image: url(../../assets/images/icn-placeholder.svg);
+        mask-image: url(../../assets/images/icn-placeholder.svg);
 
         &.user-icon {
-        //  -webkit-mask-image: url(../../assets/images/icn-user.svg);
-        //  mask-image: url(../../assets/images/icn-user.svg);
+          -webkit-mask-image: url(../../assets/images/icn-user.svg);
+          mask-image: url(../../assets/images/icn-user.svg);
         }
       }
 

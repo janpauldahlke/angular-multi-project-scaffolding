@@ -1,0 +1,13 @@
+<svg id="icn-checkbox" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="mask" width="24" height="24" transform="translate(1231 -5771)"/>
+    </clipPath>
+  </defs>
+  <g id="icn-checkbox-2" data-name="icn-checkbox" transform="translate(-1231 5771)" clip-path="url(#clip-path)">
+    <g id="icn-box-rounded" transform="translate(1231 -5771)">
+      <path id="box-outer" d="M19,3H5A2.006,2.006,0,0,0,3,5V19a2.006,2.006,0,0,0,2,2H19a2.006,2.006,0,0,0,2-2V5A2.006,2.006,0,0,0,19,3Z" fill="#666"/>
+      <path id="box-filling" d="M19,5V19H5V5H19" fill="#fff"/>
+    </g>
+  </g>
+</svg>

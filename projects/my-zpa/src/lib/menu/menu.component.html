@@ -1,29 +1,33 @@
 <div class="container" [class.overflow]="userInterfaceService.cIsMobile()">
-  <div class="option-list" *ngIf="routeDataService.activeDashboardTab$ | async as activeTab">
-    <a class="menu-option"
-       [class.active]="activeTab === DashboardTab.PatientOverview"
-       (mouseenter)="hovered = DashboardTab.PatientOverview"
-       (mouseleave)="hovered = ''"
-       [routerLink]="'/' + DashboardTab.PatientOverview"
-       [skipLocationChange]="true"
-       queryParamsHandling="merge">
+  <div
+    class="option-list"
+    *ngIf="routeDataService.activeDashboardTab$ | async as activeTab">
+    <a
+      class="menu-option"
+      [class.active]="activeTab === DashboardTab.PatientOverview"
+      (mouseenter)="hovered = DashboardTab.PatientOverview"
+      (mouseleave)="hovered = ''"
+      [routerLink]="'/' + DashboardTab.PatientOverview"
+      [skipLocationChange]="true"
+      queryParamsHandling="merge">
       <span class="icon"></span>
       <span>Patientenüberblick</span>
     </a>
-    <a class="menu-option"
-       [class.active]="activeTab === DashboardTab.MedicalPatientHistory"
-       (mouseenter)="hovered = DashboardTab.MedicalPatientHistory"
-       (mouseleave)="hovered = ''"
-       [routerLink]="'/' + DashboardTab.MedicalPatientHistory"
-       [skipLocationChange]="true"
-       queryParamsHandling="merge">
+    <a
+      class="menu-option"
+      [class.active]="activeTab === DashboardTab.MedicalPatientHistory"
+      (mouseenter)="hovered = DashboardTab.MedicalPatientHistory"
+      (mouseleave)="hovered = ''"
+      [routerLink]="'/' + DashboardTab.MedicalPatientHistory"
+      [skipLocationChange]="true"
+      queryParamsHandling="merge">
       <span class="icon"></span>
       <span>Medizinische Patientenhistorie</span>
     </a>
   </div>
   <div class="extended-information">
     <div *ngIf="dataService.facility$ | async as facility" class="menu-option">
-      <span>{{facility}}</span>
+      <span>{{ facility }}</span>
     </div>
 
     <div class="menu-option">

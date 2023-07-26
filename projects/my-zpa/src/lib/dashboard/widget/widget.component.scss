@@ -82,13 +82,13 @@
 }
 
 .single-height {
-  //height: utilities.get-vw(219px);
+  height: 219px;
 }
 
 :host {
   :host-context(.shrink) & {
     .single-height {
-      //height: utilities.get-vw(177px);
+      height: 177px;
     }
   }
 }

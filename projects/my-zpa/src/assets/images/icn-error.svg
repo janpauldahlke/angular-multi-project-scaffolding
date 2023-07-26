@@ -1,0 +1,5 @@
+<svg id="icn-error" data-name="icn-error" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <path id="filling" d="M12,2a10,10,0,1,0,.019,0Z" fill="#c80000"/>
+    <circle id="white" cx="12" cy="12" r="8" fill="#fff"/>
+    <path id="filling-2" data-name="filling" d="M13,17H11V15h2Zm0-4H11V7h2Z" fill="#c80000"/>
+</svg>

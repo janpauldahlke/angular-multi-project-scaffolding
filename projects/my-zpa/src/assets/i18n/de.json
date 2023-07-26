@@ -1,0 +1,9 @@
+{
+    "error": {
+        "account": "Account",
+        "code": "Fehlercode",
+        "service": "Betroffener Service",
+        "techDesc": "Technische Beschreibung",
+        "timestamp": "Zeitpunkt des Fehlers"
+    }
+}
